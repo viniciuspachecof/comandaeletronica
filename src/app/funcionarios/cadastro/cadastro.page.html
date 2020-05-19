@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-toolbar color="danger">
+    <ion-title>Cadastro de funcionários</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content id="cadastro">
+  <ion-card>
+    <div>
+      <ion-icon name="person" color="light"></ion-icon>
+    </div>
+    <form #funcionarioForm="ngForm" novalidate>
+      <ion-item>
+        <ion-input type="text" placeholder="Nome" name="nome" [(ngModel)]="funcionario.nome" required minlength="4" pattern="[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+" #campoNome="ngModel">
+        </ion-input>
+        <ion-text color="danger" *ngIf="campoNome.invalid && (campoNome.dirty || campoNome.touched)">
+          <small>
+            <span *ngIf="campoNome.errors.required">
+              O campo é obrigatório
+            </span>
+            <span *ngIf="campoNome.errors.minlength">
+              O campo deve ter no mínimo 4 caracteres
+            </span>
+            <span *ngIf="campoNome.errors.pattern">
+              O campo deve ter apenas letras
+            </span>
+          </small>
+        </ion-text>
+      </ion-item>
+
+      <ion-item>
+        <ion-input type="text" placeholder="Cargo" name="cargo" [(ngModel)]="funcionario.cargo" required minlength="5" pattern="[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+" #campoCargo="ngModel">
+        </ion-input>
+        <ion-text color="danger" *ngIf="campoCargo.invalid && (campoCargo.dirty || campoCargo.touched)">
+          <small>
+            <span *ngIf="campoCargo.errors.required">
+              O campo é obrigatório
+            </span>
+            <span *ngIf="campoCargo.errors.pattern">
+              O campo deve ter apenas letras
+            </span>
+          </small>
+        </ion-text>
+      </ion-item>
+    </form>
+  </ion-card>
+  
+  <ion-fab vertical="bottom" horizontal="end">
+    <ion-fab-button color="danger" (click)="salvar()" [disabled]="funcionarioForm.invalid">
+      <ion-icon name="checkmark-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

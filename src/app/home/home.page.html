@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-toolbar color="danger">
+    <ion-title>Início</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="background">
+    <ion-card>
+      <ion-card-content>
+        <ion-card-title>Bem-vindo!</ion-card-title>
+        <ion-card-subtitle>Gerencie o pedido da melhor maneira possível!</ion-card-subtitle>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <div class="opcoes" [routerLink]="['/clientes']">
+          <ion-icon slot="start" name="people"></ion-icon> <br>
+          <ion-label>Clientes</ion-label>
+        </div>
+      </ion-col>
+      <ion-col>
+        <div class="opcoes" [routerLink]="['/funcionarios']">
+          <ion-icon slot="start" name="person"></ion-icon> <br>
+          <ion-label>Funcionários</ion-label>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <div class="opcoes" [routerLink]="['/produtos']">
+          <ion-icon slot="start" name="fast-food"></ion-icon> <br>
+          <ion-label>Produtos</ion-label>
+        </div>
+      </ion-col>
+      <ion-col>
+        <div class="opcoes" [routerLink]="['/comandas']">
+          <ion-icon slot="start" name="book"></ion-icon> <br>
+          <ion-label>Comandas</ion-label>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="6" offset="3">
+        <div class="opcoes" [routerLink]="['/vendas']">
+          <ion-icon slot="start" name="cart"></ion-icon> <br>
+          <ion-label>Vendas</ion-label>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

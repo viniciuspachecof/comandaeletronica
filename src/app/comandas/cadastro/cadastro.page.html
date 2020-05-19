@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-toolbar color="danger">
+    <ion-title>Cadastro de comandas</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content id="cadastro">
+  <ion-card>
+    <div>
+      <ion-icon name="book" color="light"></ion-icon>
+    </div>
+    <form #comandaForm="ngForm" novalidate>
+      <ion-item>
+        <ion-input type="text" placeholder="Número" name="numero" [(ngModel)]="comanda.numero" required pattern="[0-99999999 ]+" #campoNumero="ngModel">
+        </ion-input>
+        <ion-text color="danger" *ngIf="campoNumero.invalid && (campoNumero.dirty || campoNumero.touched)">
+          <small>
+            <span *ngIf="campoNumero.errors.required">
+              O campo é obrigatório
+            </span>
+            <span *ngIf="campoNumero.errors.pattern">
+              O campo deve ter apenas números
+            </span>
+          </small>
+        </ion-text>
+      </ion-item>
+      <ion-item>
+        <ion-select placeholder="Selecione os produtos" [(ngModel)]="comanda.produtos" multiple="true" [compareWith]="compareWith" name="produto" required #campoProduto="ngModel">
+          <ion-select-option *ngFor="let produto of produtos" [value]="produto">
+            {{produto.nome}}
+          </ion-select-option>
+        </ion-select>
+        <ion-text color="danger" *ngIf="campoProduto.invalid && (campoProduto.dirty || campoProduto.touched)">
+          <small>
+            <span *ngIf="campoProduto.errors.required">
+              O campo é obrigatório
+            </span>          
+          </small>
+        </ion-text>
+      </ion-item>
+    </form>
+  </ion-card>
+  
+  <ion-fab vertical="bottom" horizontal="end">
+    <ion-fab-button color="danger" (click)="salvar()" [disabled]="comandaForm.invalid">
+      <ion-icon name="checkmark-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

@@ -1,0 +1,69 @@
+<ion-header>
+  <ion-toolbar color="danger">
+    <ion-title>Cadastro de clientes</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content id="cadastro">
+  <ion-card>
+    <div>
+      <ion-icon name="people" color="light"></ion-icon>
+    </div>
+    <form #clienteForm="ngForm" novalidate>
+      <ion-item>
+        <ion-input type="text" placeholder="Nome" name="nome" [(ngModel)]="cliente.nome" required minlength="4" pattern="[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+" #campoNome="ngModel">
+        </ion-input>
+        <ion-text color="danger" *ngIf="campoNome.invalid && (campoNome.dirty || campoNome.touched)">
+          <small>
+            <span *ngIf="campoNome.errors.required">
+              O campo é obrigatório
+            </span>
+            <span *ngIf="campoNome.errors.minlength">
+              O campo deve ter no mínimo 4 caracteres
+            </span>
+            <span *ngIf="campoNome.errors.pattern">
+              O campo deve ter apenas letras
+            </span>
+          </small>
+        </ion-text>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Data de nascimento</ion-label>
+        <ion-input type="date" name="dataNascimento" required [(ngModel)]="cliente.dataNascimento" #campoData="ngModel">
+        </ion-input>
+        <ion-text color="danger" *ngIf="campoData.invalid && (campoData.dirty || campoNome.touched)">
+          <small>
+            <span *ngIf="campoData.errors.required">
+              O campo é obrigatório
+            </span>
+          </small>
+        </ion-text>
+      </ion-item>
+
+      <ion-item>
+        <ion-input type="text" placeholder="Cidade" name="cidade" [(ngModel)]="cliente.cidade" required pattern="[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+" #campoCidade="ngModel">
+        </ion-input>
+        <ion-text color="danger" *ngIf="campoCidade.invalid && (campoCidade.dirty || campoCidade.touched)">
+          <small>
+            <span *ngIf="campoCidade.errors.required">
+              O campo é obrigatório
+            </span>
+            <span *ngIf="campoCidade.errors.pattern">
+              O campo deve ter apenas letras
+            </span>
+          </small>
+        </ion-text>
+      </ion-item>
+    </form>
+  </ion-card>
+  
+  <ion-fab vertical="bottom" horizontal="end">
+    <ion-fab-button (click)="salvar()" [disabled]="clienteForm.invalid" color="danger">
+      <ion-icon name="checkmark-circle"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

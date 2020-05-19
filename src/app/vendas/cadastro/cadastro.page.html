@@ -1,0 +1,88 @@
+<ion-header>
+  <ion-toolbar color="danger">
+    <ion-title>Cadastro de vendas</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content id="cadastro">
+  <ion-card>
+    <div>
+      <ion-icon name="cart" color="light"></ion-icon>
+    </div>
+    <form #vendaForm="ngForm" novalidate>
+      <ion-item>
+        <ion-select placeholder="Selecione a comanda" [(ngModel)]="venda.comandas" [compareWith]="compareWithComanda" name="comanda" (ionChange)="onChangeComanda()" required #campoComanda="ngModel">
+          <ion-select-option *ngFor="let comanda of comandas" [value]="comanda">
+            {{comanda.numero}}
+          </ion-select-option>
+        </ion-select>
+        <ion-text color="danger" *ngIf="campoComanda.invalid && (campoComanda.dirty || campoComanda.touched)">
+          <small>
+            <span *ngIf="campoComanda.errors.required">
+              O campo é obrigatório
+            </span>         
+          </small>
+        </ion-text>
+      </ion-item>
+
+      <ion-item>
+        <ion-select placeholder="Selecione o cliente" [(ngModel)]="venda.clientes" [compareWith]="compareWithCliente" name="cliente" required #campoCliente="ngModel">
+          <ion-select-option *ngFor="let cliente of clientes" [value]="cliente">
+            {{cliente.nome}}
+          </ion-select-option>
+        </ion-select>
+        <ion-text color="danger" *ngIf="campoCliente.invalid && (campoCliente.dirty || campoCliente.touched)">
+          <small>
+            <span *ngIf="campoCliente.errors.required">
+              O campo é obrigatório
+            </span>         
+          </small>
+        </ion-text>
+      </ion-item>
+
+      <ion-item>
+        <ion-select placeholder="Selecione o funcionário" [(ngModel)]="venda.funcionarios" [compareWith]="compareWithFuncionario" name="funcionario" required #campoFuncionario="ngModel">
+          <ion-select-option *ngFor="let funcionario of funcionarios" [value]="funcionario">
+            {{funcionario.nome}}
+          </ion-select-option>
+        </ion-select>
+        <ion-text color="danger" *ngIf="campoFuncionario.invalid && (campoFuncionario.dirty || campoFuncionario.touched)">
+          <small>
+            <span *ngIf="campoFuncionario.errors.required">
+              O campo é obrigatório
+            </span>         
+          </small>
+        </ion-text>
+      </ion-item>
+
+      <ion-item>
+        <ion-input type="text" placeholder="Observação" name="observacao" [(ngModel)]="venda.observacao">
+        </ion-input>        
+      </ion-item>
+
+      <ion-item>
+        <ion-input type="number" placeholder="Valor total" name="valorTotal" disabled="true" [(ngModel)]="venda.valorTotal" required pattern="[0-9]+\.?[0-9]*" #campoValorTotal="ngModel">
+        </ion-input>
+        <ion-text color="danger" *ngIf="campoValorTotal.invalid && (campoValorTotal.dirty || campoValorTotal.touched)">
+          <small>
+            <span *ngIf="campoValorTotal.errors.required">
+              O campo é obrigatório
+            </span>
+            <span *ngIf="campoValorTotal.errors.pattern">
+              O campo deve ser superior a zero
+            </span>
+          </small>
+        </ion-text>
+      </ion-item>
+    </form>
+  </ion-card>
+
+  <ion-fab vertical="bottom" horizontal="end">
+    <ion-fab-button color="danger" (click)="salvar()" [disabled]="vendaForm.invalid">
+      <ion-icon name="checkmark-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

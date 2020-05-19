@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-toolbar color="danger">
+    <ion-title>Cadastro de produtos</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content id="cadastro">
+  <ion-card>
+    <div>
+      <ion-icon name="fast-food" color="light"></ion-icon>
+    </div>
+    <form #produtoForm="ngForm" novalidate>
+      <ion-item>
+        <ion-input type="text" placeholder="Nome" name="nome" [(ngModel)]="produto.nome" required pattern="[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+" #campoNome="ngModel">
+        </ion-input>
+        <ion-text color="danger" *ngIf="campoNome.invalid && (campoNome.dirty || campoNome.touched)">
+          <small>
+            <span *ngIf="campoNome.errors.required">
+              O campo é obrigatório
+            </span>
+            <span *ngIf="campoNome.errors.pattern">
+              O campo deve ter apenas letras
+            </span>
+          </small>
+        </ion-text>
+      </ion-item>
+
+      <ion-item>
+        <ion-input type="number" placeholder="Valor unitário" name="valor" [(ngModel)]="produto.valor" required min="0" pattern="[0-9]+\.?[0-9]*" #campoValor="ngModel">
+        </ion-input>
+        <ion-text color="danger" *ngIf="campoValor.invalid && (campoValor.dirty || campoValor.touched)">
+          <small>
+            <span *ngIf="campoValor.errors.required">
+              O campo é obrigatório
+            </span>
+            <span *ngIf="campoValor.errors.pattern">
+              O campo deve ser superior a zero
+            </span>
+          </small>
+        </ion-text>
+      </ion-item>
+
+      <ion-item>
+        <ion-input type="text" placeholder="Observação" name="observacao" [(ngModel)]="produto.observacao">
+        </ion-input>
+      </ion-item>
+    </form>
+  </ion-card>
+
+  <ion-fab vertical="bottom" horizontal="end">
+    <ion-fab-button color="danger" (click)="salvar()" [disabled]="produtoForm.invalid">
+      <ion-icon name="checkmark-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
