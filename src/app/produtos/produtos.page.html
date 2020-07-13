@@ -7,10 +7,10 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content id="lista">
+<ion-content class="lista">
   <ion-list>
     <ion-item *ngFor="let produto of produtos">
-      <div>{{produto.id}}</div>
+      <div></div>
       <span>{{produto.nome}}</span>
       <ion-icon color="danger" name="create" slot="end" [routerLink]="['/produtos/cadastro', produto.id]"></ion-icon>
       <ion-icon color="danger" name="close-circle" slot="end" (click)="confirmarExclusao(produto)"></ion-icon>

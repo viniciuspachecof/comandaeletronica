@@ -7,7 +7,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content id="cadastro">
+<ion-content class="cadastro">
   <ion-card>
     <div>
       <ion-icon name="book" color="light"></ion-icon>
@@ -41,6 +41,20 @@
           </small>
         </ion-text>
       </ion-item>
+      <ion-item>
+        <ion-input type="text" placeholder="Quantidade" name="qtde" [(ngModel)]="comanda.qtde" required pattern="[0-99999999 ]+" #campoQtde="ngModel">
+        </ion-input>
+        <ion-text color="danger" *ngIf="campoQtde.invalid && (campoQtde.dirty || campoQtde.touched)">
+          <small>
+            <span *ngIf="campoQtde.errors.required">
+              O campo é obrigatório
+            </span>
+            <span *ngIf="campoQtde.errors.pattern">
+              O campo deve ter apenas números
+            </span>
+          </small>
+        </ion-text>
+      </ion-item>     
     </form>
   </ion-card>
   

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProdutoService } from 'src/app/services/produto.service';
 import { Produto } from 'src/app/models/produto.interface';
-import { NavController, LoadingController } from '@ionic/angular';
+import { NavController, LoadingController, AlertController } from '@ionic/angular';
 import { BusyLoaderService } from 'src/app/services/busy-loader.service';
 import { Comanda } from 'src/app/models/comanda.interface';
 import { ComandaService } from 'src/app/services/comanda.service';
@@ -18,6 +18,7 @@ export class CadastroPage implements OnInit {
   produtos: Produto[];
 
   constructor(
+    private alertController: AlertController,
     private produtoService: ProdutoService,
     private comandaService: ComandaService,
     private busyLoader: BusyLoaderService,
@@ -28,6 +29,7 @@ export class CadastroPage implements OnInit {
     this.comanda = {
       numero: null,
       produtos: [],
+      qtde: 1
     };
   };
 
@@ -65,6 +67,20 @@ export class CadastroPage implements OnInit {
       .subscribe(() => {
         loading.dismiss();
         this.navController.navigateForward(['/comandas']);
+      }, () => {
+        loading.dismiss();
+        this.mensagemAlerta();
       });
   };
+
+  async mensagemAlerta() {
+    const alerta = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Alerta',
+      message: 'Erro ao salvar a comanda.',
+      buttons: ['OK']
+    });
+
+    await alerta.present();
+  }; 
 };

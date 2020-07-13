@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ClienteService } from 'src/app/services/cliente.service';
-import { NavController, LoadingController } from '@ionic/angular';
+import { NavController, LoadingController, AlertController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { Cliente } from 'src/app/models/cliente.interface';
 
@@ -14,17 +14,23 @@ export class CadastroPage implements OnInit {
   cliente: Cliente;
 
   constructor(
+    private alertController: AlertController,
     private clienteService: ClienteService,
     private activatedRoute: ActivatedRoute,
     private navController: NavController,
     private loadingController: LoadingController
   ) {
-    this.cliente = { nome: '' };
+    this.cliente = {
+      nome: '',
+      dataNascimento: new Date(),
+      cpf: '',
+      cidade: ''
+    };
   };
 
   async ngOnInit() {
-    const id = parseInt(this.activatedRoute.snapshot.params['id']);
-    if (id) {      
+    const id = this.activatedRoute.snapshot.params['id'];
+    if (id) {
       const loading = await this.loadingController.create({ message: 'Carregando' });
       loading.present();
       this.clienteService.getCliente(id).subscribe((cliente) => {
@@ -43,6 +49,20 @@ export class CadastroPage implements OnInit {
       .subscribe(() => {
         loading.dismiss();
         this.navController.navigateForward(['/clientes']);
+      }, () => {
+        loading.dismiss();
+        this.mensagemAlerta();
       });
   };
+
+  async mensagemAlerta() {
+    const alerta = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Alerta',
+      message: 'Erro ao salvar o cliente.',
+      buttons: ['OK']
+    });
+
+    await alerta.present();
+  }; 
 };

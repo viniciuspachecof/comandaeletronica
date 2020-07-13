@@ -7,7 +7,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content id="cadastro">
+<ion-content class="cadastro">
   <ion-card>
     <div>
       <ion-icon name="cart" color="light"></ion-icon>
@@ -59,8 +59,15 @@
       </ion-item>
 
       <ion-item>
-        <ion-input type="text" placeholder="Observação" name="observacao" [(ngModel)]="venda.observacao">
+        <ion-input type="text" placeholder="Observação" name="observacao" required [(ngModel)]="venda.observacao" #campoObservacao="ngModel">
         </ion-input>        
+        <ion-text color="danger" *ngIf="campoObservacao.invalid && (campoObservacao.dirty || campoObservacao.touched)">
+          <small>
+            <span *ngIf="campoObservacao.errors.required">
+              O campo é obrigatório
+            </span>            
+          </small>
+        </ion-text>
       </ion-item>
 
       <ion-item>

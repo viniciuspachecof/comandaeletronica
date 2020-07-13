@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProdutoService } from 'src/app/services/produto.service';
-import { NavController, LoadingController } from '@ionic/angular';
+import { NavController, LoadingController, AlertController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { Produto } from 'src/app/models/produto.interface';
 
@@ -14,6 +14,7 @@ export class CadastroPage implements OnInit {
   produto: Produto;
 
   constructor(
+    private alertController: AlertController,
     private produtoService: ProdutoService,
     private activatedRoute: ActivatedRoute,
     private navController: NavController,
@@ -27,7 +28,7 @@ export class CadastroPage implements OnInit {
   };
 
   async ngOnInit() {
-    const id = parseInt(this.activatedRoute.snapshot.params['id']);
+    const id = this.activatedRoute.snapshot.params['id'];
     if (id) {
       // Carregar as informações
       const loading = await this.loadingController.create({ message: 'Carregando' });
@@ -48,6 +49,20 @@ export class CadastroPage implements OnInit {
       .subscribe(() => {
         loading.dismiss();
         this.navController.navigateForward(['/produtos']);
+      }, () => {
+        loading.dismiss();
+        this.mensagemAlerta();
       });
   };
+
+  async mensagemAlerta() {
+    const alerta = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Alerta',
+      message: 'Erro ao salvar o produto.',
+      buttons: ['OK']
+    });
+
+    await alerta.present();
+  }; 
 };

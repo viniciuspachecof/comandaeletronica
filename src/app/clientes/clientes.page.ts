@@ -58,6 +58,20 @@ export class ClientesPage implements OnInit {
     this.clienteService.excluir(cliente).subscribe(() => {
       this.listar()
       busyLoader.dismiss();
+    }, () => {
+      busyLoader.dismiss();
+      this.mensagemAlerta();
     });
+  };
+
+  async mensagemAlerta() {
+    const alerta = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Alerta',
+      message: 'Erro ao excluir o cliente.',
+      buttons: ['OK']
+    });
+
+    await alerta.present();
   };
 };

@@ -58,6 +58,20 @@ export class FuncionariosPage implements OnInit {
     this.funcionarioService.excluir(funcionario).subscribe(() => {
       this.listar()
       busyLoader.dismiss();
+    }, () => {
+      busyLoader.dismiss();
+      this.mensagemAlerta();
     });
+  };
+
+  async mensagemAlerta() {
+    const alerta = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Alerta',
+      message: 'Erro ao excluir o funcionário.',
+      buttons: ['OK']
+    });
+
+    await alerta.present();
   };
 };

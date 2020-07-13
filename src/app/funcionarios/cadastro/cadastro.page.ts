@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FuncionarioService } from 'src/app/services/funcionario.service';
-import { NavController, LoadingController } from '@ionic/angular';
+import { NavController, LoadingController, AlertController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { Funcionario } from 'src/app/models/funcionario.interface';
 
@@ -17,16 +17,18 @@ export class CadastroPage implements OnInit {
     private funcionarioService: FuncionarioService,
     private activatedRoute: ActivatedRoute,
     private navController: NavController,
-    private loadingController: LoadingController
+    private loadingController: LoadingController,
+    private alertController: AlertController
   ) {
     this.funcionario = {
       nome: '',
+      cpf: '',
       cargo: ''
     };
   };
 
   async ngOnInit() {
-    const id = parseInt(this.activatedRoute.snapshot.params['id']);
+    const id = this.activatedRoute.snapshot.params['id'];
     if (id) {      
       const loading = await this.loadingController.create({ message: 'Carregando' });
       loading.present();
@@ -46,6 +48,20 @@ export class CadastroPage implements OnInit {
       .subscribe(() => {
         loading.dismiss();
         this.navController.navigateForward(['/funcionarios']);
+      }, () => {
+        loading.dismiss();
+        this.mensagemAlerta();
       });
+  };
+
+  async mensagemAlerta() {
+    const alerta = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Alerta',
+      message: 'Erro ao salvar o funcionário.',
+      buttons: ['OK']
+    });
+
+    await alerta.present();
   };
 };

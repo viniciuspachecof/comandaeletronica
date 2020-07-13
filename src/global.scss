@@ -29,28 +29,25 @@
     font-family: 'Poppins', sans-serif!important;
 }
 
-#lista ion-list ion-item div {
-    margin-right: 7px; 
-    color: #fff; 
+.lista ion-list ion-item div {
+    margin-right: 7px;     
     background-color: #EB445A; 
-    width: 30px; 
-    height: 30px; 
-    border-radius: 100%; 
-    text-align: center; 
-    padding-top: 3px;
-    box-shadow: rgba(0, 0, 0, 0.5) 0px 3px 1px -2px, rgba(0, 0, 0, 0.14) 0px 2px 2px 0px, rgba(0, 0, 0, 0.12) 0px 1px 5px 0px;
+    width: 10px; 
+    height: 10px; 
+    border-radius: 100%;         
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 3px 1px -2px, rgba(0, 0, 0, 0.14) 0px 2px 2px 0px, rgba(0, 0, 0, 0.12) 0px 1px 5px 0px;
 }
 
-#lista ion-list ion-item div + span {
+.lista ion-list ion-item div + span {
     color: #777
 }
 
-#cadastro ion-card div {
+.cadastro ion-card div {
     text-align: center; 
     background-color: #EB445A;
 }
 
-#cadastro ion-card ion-icon {
+.cadastro ion-card ion-icon {
     font-size: 50px;    
     margin: 5px 0px 0px 0px
 }

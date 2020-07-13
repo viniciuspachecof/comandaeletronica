@@ -7,10 +7,10 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content id="lista">
+<ion-content class="lista">
   <ion-list>
     <ion-item *ngFor="let funcionario of funcionarios">
-      <div>{{funcionario.id}}</div>
+      <div></div>
       <span>{{funcionario.nome}}</span>
       <ion-icon color="danger" name="create" slot="end" [routerLink]="['/funcionarios/cadastro', funcionario.id]">
       </ion-icon>

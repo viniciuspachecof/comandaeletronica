@@ -59,7 +59,20 @@ export class ComandasPage implements OnInit {
     this.comandaService.excluir(comanda).subscribe(() => {
       this.listar()
       busyLoader.dismiss();
+    }, () => {
+      busyLoader.dismiss();
+      this.mensagemAlerta();
     });
-  }
+  };
 
-}
+  async mensagemAlerta() {
+    const alerta = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Alerta',
+      message: 'Erro ao excluir a comanda.',
+      buttons: ['OK']
+    });
+
+    await alerta.present();
+  };
+};

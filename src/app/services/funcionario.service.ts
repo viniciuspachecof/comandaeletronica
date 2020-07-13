@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Funcionario } from '../models/funcionario.interface';
+import { api } from './api';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FuncionarioService {
 
-  private URI = 'http://localhost:3000/funcionarios';
+  private URI = api + 'funcionarios';
 
   constructor(
     private httpClient : HttpClient

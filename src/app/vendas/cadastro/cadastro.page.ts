@@ -10,6 +10,7 @@ import { VendaService } from 'src/app/services/venda.service';
 import { ActivatedRoute } from '@angular/router';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { FuncionarioService } from 'src/app/services/funcionario.service';
+// import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-cadastro',
@@ -43,6 +44,23 @@ export class CadastroPage implements OnInit {
   };
 
   ngOnInit() {
+    // const carregarLista = new Observable(subscriber => {
+    //   subscriber.next();
+    // });
+
+    // carregarLista.subscribe(() => {
+    //   this.listarComandas();
+    // });
+    // carregarLista.subscribe(() => {
+    //   this.listarClientes();
+    // });
+    // carregarLista.subscribe(() => {
+    //   this.listarFuncionarios();
+    // });
+    // carregarLista.subscribe(() => {
+    //   this.carregarVenda();
+    // });
+
     this.listarComandas();
     this.listarClientes();
     this.listarFuncionarios();
@@ -52,7 +70,7 @@ export class CadastroPage implements OnInit {
     const busyLoader = await this.busyLoader.create('Carregando comandas...');
 
     this.comandaService.getComandas().subscribe((comandas) => {
-      this.comandas = comandas;
+      this.comandas = comandas;      
       this.carregarVenda();
       busyLoader.dismiss();
     });
@@ -62,7 +80,7 @@ export class CadastroPage implements OnInit {
     const busyLoader = await this.busyLoader.create('Carregando clientes...');
 
     this.clienteService.getClientes().subscribe((clientes) => {
-      this.clientes = clientes;
+      this.clientes = clientes;      
       this.carregarVenda();
       busyLoader.dismiss();
     });
@@ -70,9 +88,9 @@ export class CadastroPage implements OnInit {
 
   async listarFuncionarios() {
     const busyLoader = await this.busyLoader.create('Carregando funcionarios...');
-
+    
     this.funcionarioService.getFuncionarios().subscribe((funcionarios) => {
-      this.funcionarios = funcionarios;
+      this.funcionarios = funcionarios;      
       this.carregarVenda();
       busyLoader.dismiss();
     });
@@ -113,6 +131,7 @@ export class CadastroPage implements OnInit {
     let dadosComandas = this.venda.comandas;
     let dadosProdutos = dadosComandas["produtos"];
     let totalValorProdutos = dadosProdutos.reduce((totalValorProdutos, dadosProdutos) => totalValorProdutos + dadosProdutos.valor, 0);
-    this.venda.valorTotal = totalValorProdutos;
+    let totalVenda = totalValorProdutos * dadosComandas["qtde"]
+    this.venda.valorTotal = totalVenda;
   };
 };

@@ -7,7 +7,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content id="cadastro">
+<ion-content class="cadastro">
   <ion-card>
     <div>
       <ion-icon name="person" color="light"></ion-icon>
@@ -27,6 +27,21 @@
             <span *ngIf="campoNome.errors.pattern">
               O campo deve ter apenas letras
             </span>
+          </small>
+        </ion-text>
+      </ion-item>
+
+      <ion-item>      
+        <ion-input type="text" mask="000.000.000-00" placeholder="CPF" name="cpf" minlength="14" required [(ngModel)]="funcionario.cpf" #campoCpf="ngModel">
+        </ion-input>
+        <ion-text color="danger" *ngIf="campoCpf.invalid && (campoCpf.dirty || campoCpf.touched)">
+          <small>
+            <span *ngIf="campoCpf.errors.required">
+              O campo é obrigatório
+            </span>
+            <span *ngIf="campoCpf.errors.minlength">
+              O campo é inválido
+            </span>           
           </small>
         </ion-text>
       </ion-item>

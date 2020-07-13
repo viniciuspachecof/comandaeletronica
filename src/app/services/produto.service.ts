@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Produto } from '../models/produto.interface';
+import { api } from './api';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProdutoService {
 
-  private URI = 'http://localhost:3000/produtos';
+  private URI = api + 'produtos';
 
   constructor(
     private httpClient : HttpClient

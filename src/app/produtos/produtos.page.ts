@@ -59,7 +59,20 @@ export class ProdutosPage implements OnInit {
     this.produtoService.excluir(produto).subscribe(() => {
       this.listar()
       busyLoader.dismiss();
+    }, () => {
+      busyLoader.dismiss();
+      this.mensagemAlerta();
     });
-  }
+  };
 
-}
+  async mensagemAlerta() {
+    const alerta = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Alerta',
+      message: 'Erro ao excluir o produto.',
+      buttons: ['OK']
+    });
+
+    await alerta.present();
+  };
+};

@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Comanda } from '../models/comanda.interface';
+import { api } from './api';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ComandaService {
 
-  private URI = 'http://localhost:3000/comandas';
+  private URI = api + 'comandas';
   
   constructor(
     private httpClient:HttpClient
