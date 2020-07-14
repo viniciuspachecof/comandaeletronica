@@ -22,8 +22,8 @@ export class CadastroPage implements OnInit {
   ) {
     this.cliente = {
       nome: '',
-      dataNascimento: new Date(),
       cpf: '',
+      dataNascimento: '',
       cidade: ''
     };
   };
@@ -35,6 +35,11 @@ export class CadastroPage implements OnInit {
       loading.present();
       this.clienteService.getCliente(id).subscribe((cliente) => {
         this.cliente = cliente;
+        let dataCliente = new Date(cliente.dataNascimento);
+        let dia = ("0" + dataCliente.getDate()).slice(-2);
+        let mes = ("0" + (dataCliente.getMonth() + 1)).slice(-2);
+        let ano = dataCliente.getFullYear();
+        this.cliente.dataNascimento = ano + '-' + mes + '-' + dia;
         loading.dismiss();
       });
     }
@@ -42,7 +47,7 @@ export class CadastroPage implements OnInit {
 
   async salvar() {
     let loading = await this.loadingController.create({ message: 'Salvando' });
-    loading.present();
+    loading.present();    
 
     this.clienteService
       .salvar(this.cliente)
@@ -64,5 +69,5 @@ export class CadastroPage implements OnInit {
     });
 
     await alerta.present();
-  }; 
+  };
 };

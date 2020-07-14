@@ -29,13 +29,7 @@
             </span>
           </small>
         </ion-text>
-      </ion-item>
-
-      <ion-item>
-        <ion-label position="stacked">Data de nascimento</ion-label>
-        <ion-input type="date" name="dataNascimento" [(ngModel)]="cliente.dataNascimento" #campoData="ngModel">
-        </ion-input>        
-      </ion-item>
+      </ion-item>      
 
       <ion-item>      
         <ion-input type="text" mask="000.000.000-00" placeholder="CPF" name="cpf" minlength="14" required [(ngModel)]="cliente.cpf" #campoCpf="ngModel">
@@ -50,6 +44,12 @@
             </span>           
           </small>
         </ion-text>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Data de nascimento</ion-label>
+        <ion-input type="date" name="dataNascimento" [(ngModel)]="cliente.dataNascimento">
+        </ion-input>        
       </ion-item>
 
       <ion-item>
